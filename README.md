@@ -157,3 +157,7 @@ outro caminho.
 - O fluxo foi testado com `claude -p` em cenários isolados: status e retomada, bloqueio de etapa sem aprovação, conflito
   de escopo, geração de spec, reabertura, ideia no meio do trabalho, produto em draft e POC. A injeção de estado em plan
   mode e a execução completa de um bug ainda não foram testadas.
+
+## Licença
+
+MIT. Veja `LICENSE`.
