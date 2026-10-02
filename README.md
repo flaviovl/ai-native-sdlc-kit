@@ -2,7 +2,8 @@
 
 Kit para o [Claude Code](https://code.claude.com/docs) que transforma o **AI-native SDLC playbook** da Anthropic num
 fluxo de trabalho feito de skills. Cada etapa grava um artefato versionado no git, que a etapa seguinte lê. Um humano
-aprova cada artefato mudando o `Status` e fazendo commit. O Claude nunca aprova o próprio trabalho.
+aprova cada artefato na conversa, e o Claude grava o `Status`. O Claude nunca aprova o próprio trabalho, e só commita
+com o sim do humano.
 
 Você conversa em linguagem natural ("onde parei?", "tive uma ideia", "pode seguir com o 001") ou usa `/sdlc`. A skill
 orquestradora lê os artefatos, calcula em que ponto cada trabalho está e executa a próxima etapa, ou diz qual ação é
@@ -38,7 +39,8 @@ O kit foi bastante modificado, mas mantém os princípios.
 - Uma pasta por trabalho em `docs/changes/NNN-slug/`, com a origem, os artefatos, os findings e cada rodada de review.
 - Um script determinístico (`status.sh`) que calcula o estado de todos os itens a partir dos artefatos, usado pelo
   orquestrador e por todas as skills.
-- Adaptação para quem ocupa todos os papéis sozinho: os portões continuam, e o commit é a assinatura.
+- Adaptação para quem ocupa todos os papéis sozinho: os portões continuam, a resposta na conversa é a assinatura, e o
+  fluxo segue para a próxima etapa sem trocar de sessão. Commit é opcional; push e merge são do humano.
 
 A comparação elemento a elemento está em `.claude/skills/sdlc/references/kit.md`, seção "Fidelidade ao playbook".
 
@@ -65,7 +67,7 @@ Trabalho: docs/changes · produto (docs/product/vision.md): approved · backlog 
 |---|---|---|---|---|---|---|---|
 | 001-feasibility (poc) | approved | - | done | 5/5 | Concluído | nenhuma | - |
 | 002-voice-commands | approved | approved | approved | 2/4 | Build 2/4 | /sdlc-build 002 (continua do passo 3) | Claude |
-| 003-double-scroll (bug) | draft | - | - | - | Intent em rascunho | revisar intent.md, preencher Decisão, mudar para Status: approved e commitar | você |
+| 003-double-scroll (bug) | draft | - | - | - | Intent em rascunho | aprovar o intent na conversa (/sdlc seguir 003) | você |
 ```
 
 ## Como usar
@@ -144,7 +146,7 @@ outro caminho.
 ## Requisitos
 
 - Claude Code com suporte a skills (testado na 2.1.285), bash e `jq`.
-- git; o commit é a assinatura de cada aprovação.
+- git, para versionar os artefatos e as branches `sdlc/NNN-slug`.
 - `gh`, para o review de PR pelo terminal.
 - No CI, `ANTHROPIC_API_KEY`. Node só é necessário quando o projeto tiver `package.json`.
 
