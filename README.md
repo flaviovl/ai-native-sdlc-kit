@@ -1,7 +1,8 @@
 # ai-native-sdlc-kit
 
 Kit para o [Claude Code](https://code.claude.com/docs) que transforma o **AI-native SDLC playbook** da Anthropic num
-fluxo de trabalho feito de skills. Cada etapa grava um artefato versionado no git, que a etapa seguinte lê. Um humano
+fluxo de trabalho feito de skills. Cada etapa grava um artefato em `docs/changes/`, que a etapa seguinte lê; essa pasta
+é o histórico local do trabalho e fica fora do git. Um humano
 aprova cada artefato na conversa, e o Claude grava o `Status`. O Claude nunca aprova o próprio trabalho, e só commita
 com o sim do humano.
 
@@ -39,6 +40,8 @@ O kit foi bastante modificado, mas mantém os princípios.
 - Uma pasta por trabalho em `docs/changes/NNN-slug/`, com a origem, os artefatos, os findings e cada rodada de review.
 - Um script determinístico (`status.sh`) que calcula o estado de todos os itens a partir dos artefatos, usado pelo
   orquestrador e por todas as skills.
+- Os artefatos (`docs/changes/`, `docs/backlog/`) ficam locais, fora do git. O que precisa durar no repositório vira um
+  documento próprio. Por isso o review do CI não lê intent, spec e plan.
 - Adaptação para quem ocupa todos os papéis sozinho: os portões continuam, a resposta na conversa é a assinatura, e o
   fluxo segue para a próxima etapa sem trocar de sessão. Commit é opcional; push e merge são do humano.
 
