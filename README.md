@@ -50,9 +50,9 @@ A comparação elemento a elemento está em `.claude/skills/sdlc/references/kit.
 projeto novo ─▶ docs/product/vision.md (sdlc-product) ─▶ aprovado
 ideia, problema ou bug a qualquer momento ─▶ docs/backlog/<slug>.md (/sdlc anotar)
     └─ escolhido ─▶ docs/changes/NNN-slug/ (a entrada vira origin.md)
-        feature: intent ─▶ spec ─▶ plan ─▶ build (passos [x]) ─▶ review + merge ─▶ plan Status: done
+        feature: intent ─▶ spec ─▶ plan ─▶ build (passos [x]) ─▶ review + main ─▶ plan Status: done
         poc:     intent ─▶ plan ─▶ build ─▶ findings.md ─▶ respostas no vision.md ─▶ plan Status: done
-        bug:     intent ─▶ plan test-first ─▶ correção (sdlc-bugfix) ─▶ review + merge ─▶ plan Status: done
+        bug:     intent ─▶ plan test-first ─▶ correção (sdlc-bugfix) ─▶ review + main ─▶ plan Status: done
 alerta ou incidente ─▶ intent novo (sdlc-incident)
 ```
 
@@ -146,8 +146,8 @@ outro caminho.
 ## Requisitos
 
 - Claude Code com suporte a skills (testado na 2.1.285), bash e `jq`.
-- git, para versionar os artefatos e as branches `sdlc/NNN-slug`.
-- `gh`, para o review de PR pelo terminal.
+- git: todo trabalho na `develop`, entregue na `main` por fast-forward (`.claude/skills/sdlc/references/git.md`).
+- `gh`, só se for usar PR (opcional) para o review no CI.
 - No CI, `ANTHROPIC_API_KEY`. Node só é necessário quando o projeto tiver `package.json`.
 
 ## Limitações conhecidas
